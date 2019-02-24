@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.ant</groupId>
+    <artifactId>emailtool</artifactId>
+    <version>1.0.0</version>
+    <!--
+        主版本号（1）：当功能模块有较大的变动,有部分内容不兼容之前的
+            比如增加多个模块或者整体架构发生变化。
+            此版本号由项目决定是否修改。（另一种说法：产品的主体构件或构件之间的接口协议发生重大变动）
+        子版本号（0）：增加新功能或者功能进行更新
+            比如增加了对权限控制、增加自定义视图等功能。
+            此版本号由项目决定是否修改。（另一种说法：产品的数据结构发生变动）
+        阶段版本号（0）： Bug 修复或是一些小的变动
+            比如修复一个严重的bug,即可发布一个修订版。
+            此版本号由项目经理决定是否修改。（另一种说法：产品的数据结构未发生变动，仅修复bug）
+        -->
+    <packaging>jar</packaging>
+    <!--指定仓库地址-->
+    <distributionManagement>
+        <repository>
+            <!--此名称要和.m2/settings.xml中设置的ID一致-->
+            <id>nexusTest</id>
+            <url>http://192.168.48.134:8081/repository/test-release/</url>
+        </repository>
+    </distributionManagement>
+    <properties>
+        <java.version>1.8</java.version>
+    </properties>
+    <dependencies>
+        <!-- https://mvnrepository.com/artifact/junit/junit -->
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.12</version>
+            <scope>test</scope>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/javax.mail/mail -->
+        <dependency>
+            <groupId>javax.mail</groupId>
+            <artifactId>mail</artifactId>
+            <version>1.4.7</version>
+        </dependency>
+
+    </dependencies>
+
+    <build>
+        <plugins>
+            <!-- 发布代码Jar插件 -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-deploy-plugin</artifactId>
+                <version>2.7</version>
+            </plugin>
+            <!-- 发布源码插件 -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <version>2.2.1</version>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <configuration>
+                    <testFailureIgnore>true</testFailureIgnore>
+                    <skipTests>true</skipTests>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>
